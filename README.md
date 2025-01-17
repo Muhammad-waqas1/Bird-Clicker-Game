@@ -36,10 +36,10 @@ A fun and addictive incremental clicker game where players earn coins by clickin
 --------------------
 
 1.  ```shell
-git clone https://github.com/your-username/bird-clicker-game.git
+    git clone https://github.com/your-username/bird-clicker-game.git
     
 2.  ```shell
-cd bird-clicker-game
+    cd bird-clicker-game
     
 3.  Open index.html in your preferred browser.Alternatively, use a local web server for a better experience.
     
@@ -52,12 +52,12 @@ Contributions are welcome! Here's how you can help:
 1.  Fork the repository.
     
 2.  ```shell
-git checkout -b feature-name
+    git checkout -b feature-name
     
 3.  ```shell
-git commit -m "Description of changes"
+    git commit -m "Description of changes"
     
 4.  ```shell
-git push origin feature-name
+    git push origin feature-name
     
 5.  Open a Pull Request.
