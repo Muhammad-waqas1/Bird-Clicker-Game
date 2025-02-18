@@ -67,6 +67,18 @@ clickArea.addEventListener('click', () => {
     updateScore();
 });
 
+function showAlert(message, duration = 2000) {
+    const alert = document.createElement('div');
+    alert.className = 'game-alert';
+    alert.textContent = message;
+    document.body.appendChild(alert);
+    
+    setTimeout(() => {
+        alert.style.animation = 'fadeIn 0.3s ease-out reverse';
+        setTimeout(() => alert.remove(), 300);
+    }, duration);
+}
+
 // Function to handle purchase of upgrades
 function handleUpgradePurchase(upgradeType) {
     switch(upgradeType) {
@@ -79,8 +91,9 @@ function handleUpgradePurchase(upgradeType) {
                 upgrade1Cost = Math.round(upgrade1Cost * 1.5); // Increase cost by 50% each time
                 document.querySelector('#UpgradeButton1 .cost-amount').innerText = upgrade1Cost;
                 updateCoinsPerSecond();
+                coinsPerSecondElement.style.display = autoClickUpgrades === 0 ? 'none' : 'block';
             } else {
-                alert('Not enough coins!');
+                showAlert('Not enough coins!');
             }
             break;
 
@@ -93,7 +106,7 @@ function handleUpgradePurchase(upgradeType) {
                 upgrade2Cost = Math.round(upgrade2Cost * 1.5); // Increase cost by 50% each time
                 document.querySelector('#UpgradeButton2 .cost-amount').innerText = upgrade2Cost;
             } else {
-                alert('Not enough coins!');
+                showAlert('Not enough coins!');
             }
             break;
 
@@ -106,7 +119,7 @@ function handleUpgradePurchase(upgradeType) {
                 upgrade3Cost = Math.round(upgrade3Cost * 1.5); // Increase cost by 50% each time
                 document.querySelector('#UpgradeButton3 .cost-amount').innerText = upgrade3Cost;
             } else {
-                alert('Not enough coins!');
+                showAlert('Not enough coins!');
             }
             break;
 
@@ -119,7 +132,7 @@ function handleUpgradePurchase(upgradeType) {
                 upgrade4Cost = Math.round(upgrade4Cost * 1.5); // Increase cost by 50% each time
                 document.querySelector('#UpgradeButton4 .cost-amount').innerText = upgrade4Cost;
             } else {
-                alert('Not enough coins!');
+                showAlert('Not enough coins!');
             }
             break;
     }
@@ -138,10 +151,6 @@ setInterval(() => {
     score += coinsPerSecond;
     updateScore();
 }, 1000); // Update score every second based on coins per second
-
-
-
-
 
 
 // Function to handle the "click" effect on the bird image
@@ -178,3 +187,25 @@ clickImage.addEventListener('click', () => {
         clickImage.classList.remove('clicked');
     }, 300); // Duration of the effect (300ms for quick bounce)
 });
+
+// Random movement for the bird image, test by uncommenting. Works with 1080p, but a canvas would be nice so the bird would bounce off the boundaries and that would work with all viewports.
+
+// function moveRandomly() {
+//     const bird = document.getElementById('click-image');
+//     const gameArea = document.getElementById('game');
+    
+//     const minX = -800;
+//     const maxX = gameArea.clientWidth - bird.clientWidth - 800;
+//     const minY = -800;
+//     const maxY = gameArea.clientHeight - bird.clientHeight - 100;
+    
+//     const randomX = minX + Math.random() * (maxX - minX);
+//     const randomY = minY + Math.random() * (maxY - minY);
+    
+//     bird.style.transition = 'all 1s linear';
+//     bird.style.left = `${randomX}px`;
+//     bird.style.top = `${randomY}px`;
+// }
+
+// setInterval(moveRandomly, 1000);
+
