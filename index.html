@@ -5,10 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Bird Clicker Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Hamburger Button -->
+    <div id="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <!-- Side Menu -->
+    <div id="menu-popup">
+        <ul>
+            <li onclick="resetGame()">🔄 Reset Game</li>
+            <li onclick="toggleDarkMode()">🌙 Dark Mode</li>
+            <li onclick="showGameInfo()">ℹ️ Game Info</li>
+        </ul>
+    </div>
+
+    <!-- Custom Confirm Dialog -->
+    <div id="custom-confirm" class="confirm-overlay">
+        <div class="confirm-box">
+            <h2>⚠ Reset Game?</h2>
+            <p>Are you sure you want to reset your progress? This action cannot be undone!</p>
+            <div class="confirm-buttons">
+                <button id="confirm-yes">Yes, Reset</button>
+                <button id="confirm-no">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+
     <div id="game">
         <div id="stats">
             <div id="score-box">Coins: <span id="score">0</span></div>
@@ -16,7 +46,7 @@
         <div id="coins-per-second"></div>
 
         <!-- Left Sidebar for Upgrades -->
-        <div id="upgrade-sidebar">
+        <div id="upgrade-sidebar" class="upgrade-container">
             <h2>Upgrades</h2>
 
             <div class="upgrade-item" id="UpgradeButton1">
@@ -24,8 +54,8 @@
                     <h3>Auto Click</h3>
                     <p>+1 Auto Coins per second</p>
                     <p class="cost"><span class="cost-amount">50</span><img
-                            src="pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png" alt="Coins"
-                            width="15%"></p>
+                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                            alt="Coins" width="15%"></p>
                     <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
                 </div>
                 <div class="click-count"><span class="click-count-num">0</span></div>
@@ -36,8 +66,8 @@
                     <h3>Click Power</h3>
                     <p>+1 Birds per click</p>
                     <p class="cost"><span class="cost-amount">125</span><img
-                            src="pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png" alt="Coins"
-                            width="15%"></p>
+                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                            alt="Coins" width="15%"></p>
                     <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
                 </div>
                 <div class="click-count"><span class="click-count-num">0</span></div>
@@ -48,8 +78,8 @@
                     <h3>Mr Clicker</h3>
                     <p>+5 Birds per click</p>
                     <p class="cost"><span class="cost-amount">500</span><img
-                            src="pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png" alt="Coins"
-                            width="15%"></p>
+                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                            alt="Coins" width="15%"></p>
                     <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
                 </div>
                 <div class="click-count"><span class="click-count-num">0</span></div>
@@ -60,8 +90,8 @@
                     <h3>Birds Nest</h3>
                     <p>+6 Birds per click</p>
                     <p class="cost"><span class="cost-amount">1,100</span><img
-                            src="pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png" alt="Coins"
-                            width="15%"></p>
+                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                            alt="Coins" width="15%"></p>
                     <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
                 </div>
                 <div class="click-count"><span class="click-count-num">0</span></div>
@@ -72,7 +102,7 @@
 
         <div id="click-area">
             <!-- Image for game -->
-            <img id="click-image" src="pngtree-cartoon-bird-blue-bird-png-image_2370765-removebg-preview.png"
+            <img id="click-image" src="assets/pngtree-cartoon-bird-blue-bird-png-image_2370765-removebg-preview.png"
                 alt="Click Object">
         </div>
     </div>
