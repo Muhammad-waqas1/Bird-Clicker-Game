@@ -254,20 +254,6 @@ p {
     }
 }
 
-/* @keyframes clickEffect {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1; 
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1; 
-    }
-} */
 
 
 /* Coin animation styling */
@@ -371,52 +357,6 @@ p {
 }
 
 
-/* Hamburger Icon */
-#hamburger-menu {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000;
-    color: #f1f1f1;
-    background: rgba(255, 255, 255, 0.089);
-    padding: 5px;
-    border-radius: 5px;
-}
-
-/* Menu Pop-up */
-#menu-popup {
-    position: fixed;
-    top: 15px;
-    left: 57px;
-    background: #ffffff;
-    width: 200px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    display: none;
-    z-index: 999;
-}
-
-/* Menu Items */
-#menu-popup ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#menu-popup li {
-    padding: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-bottom: 1px solid #ddd;
-}
-
-#menu-popup li:hover {
-    background: #f1f1f1;
-}
-
 
 
 
@@ -497,4 +437,13 @@ p {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+
+
+.reward-bird {
+    position: absolute;
+    width: 80px;
+    transition: transform 4s linear;
+    cursor: pointer;
 }

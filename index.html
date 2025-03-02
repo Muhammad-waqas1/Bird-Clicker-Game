@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Bird Clicker Game</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="progress.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="powerups.css">
+    <link rel="stylesheet" href="RewardExtra.css">
+
 </head>
 
 <body>
@@ -19,11 +25,73 @@
     <!-- Side Menu -->
     <div id="menu-popup">
         <ul>
-            <li onclick="resetGame()">🔄 Reset Game</li>
+            <li onclick="toggleMusic()">
+                🎵 Toggle Music
+                <label class="switch">
+                    <input type="checkbox" id="musicToggle" onchange="toggleMusic()">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+            <li>
+                🔊 Volume
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" onchange="adjustVolume()">
+            </li>
+            <li id="extras-btn" class="menu-button">🎁 Rewards & Extras</li>
+            <li onclick="showAchievements()">🏆 Achievements</li>
+            <li onclick="shareOnTwitter()">📢 Share Score</li>
             <li onclick="toggleDarkMode()">🌙 Dark Mode</li>
-            <li onclick="showGameInfo()">ℹ️ Game Info</li>
+            <li onclick="openPremiumStore()">🎨 Premium Upgrades</li>
+            <li onclick="resetGame()">🔄 Reset Game</li>
+            <li onclick="showGameInfo()">ℹ️ Help</li>
         </ul>
     </div>
+
+    <div id="extras-menu" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-extras">&times;</span>
+            <h2>🎁 Rewards & Extras</h2>
+            
+            <div class="extras-section">
+                <h3>🐦 Bird Evolution</h3>
+                <p>Upgrade your bird from a chick to a majestic eagle!</p>
+                <progress id="evolution-progress" value="0" max="100"></progress>
+                <p>Current Stage: <span id="evolution-stage">Chick</span></p>
+            </div>
+    
+            <div class="extras-section">
+                <h3>🎮 Mini-Games</h3>
+                <button id="play-minigame">Play "Dodge the Obstacle"</button>
+            </div>
+    
+            <div class="extras-section">
+                <h3>🌄 Unlockable Backgrounds</h3>
+                <button class="background-btn" data-bg="default">🌳 Default</button>
+                <button class="background-btn" data-bg="day">☀️ Day Theme</button>
+                <button class="background-btn" data-bg="forest">🌲 Forest Theme</button>
+                <button class="background-btn" data-bg="evening">🌆 Evening Theme</button>
+                <button class="background-btn" data-bg="morning">🌊 River Theme</button>
+                <button class="background-btn" data-bg="night">🌃 Night Theme</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Achievements Pop-up -->
+    <div id="achievements-popup" class="popup">
+        <div class="popup-content">
+            <h2>🏆 Achievements</h2>
+            <ul id="achievements-list">
+                <!-- Achievements will be added here dynamically -->
+            </ul>
+            <button onclick="closeAchievements()">Close</button>
+        </div>
+    </div>
+
+    <!-- Achievement Notification -->
+    <div id="achievement-popup" class="achievement-popup">
+        <p id="achievement-text"></p>
+    </div>
+
 
     <!-- Custom Confirm Dialog -->
     <div id="custom-confirm" class="confirm-overlay">
@@ -35,6 +103,27 @@
                 <button id="confirm-no">Cancel</button>
             </div>
         </div>
+    </div>
+
+
+    <div class="level-container">
+        <p style="font-size: 25px; ">Level <span id="levelDisplay">1</span></p>
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+    </div>
+
+    <!-- Boosts Button -->
+    <button id="powerups-btn" class="menu-button">Boosts⚡</button>
+
+    <!-- Power-Ups Popup Menu -->
+    <div id="powerups-menu" class="popup-menu hidden">
+        <h2>⚡ Power-Ups</h2>
+        <button id="double-coins" class="powerup-btn">💰 2x Coins (20s) - 1000 Coins</button>
+        <button id="auto-frenzy" class="powerup-btn">🔥 Auto Click Frenzy (10s) - 2000 Coins</button>
+        <button id="golden-bird" class="powerup-btn">✨ Golden Bird Mode (30s) - 5000 Coins</button>
+        <button id="discount-mode" class="powerup-btn">💸 Reduce Upgrade Costs (15s) - 3000 Coins</button>
+        <button id="close-powerups" class="close-btn">❌ Close</button>
     </div>
 
 
@@ -88,7 +177,7 @@
             <div class="upgrade-item" id="UpgradeButton4">
                 <div class="upgrade-details">
                     <h3>Birds Nest</h3>
-                    <p>+6 Birds per click</p>
+                    <p>+10 Birds per click</p>
                     <p class="cost"><span class="cost-amount">1,100</span><img
                             src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
                             alt="Coins" width="15%"></p>
@@ -106,8 +195,12 @@
                 alt="Click Object">
         </div>
     </div>
+
+
+
     <!-- JavaScript link -->
     <script src="script.js"></script>
+    <!-- <script src="progress.js"></script> -->
 </body>
 
 </html>
