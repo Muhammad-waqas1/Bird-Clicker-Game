@@ -1,4 +1,4 @@
-/* Power-Ups Button */
+
 #powerups-btn {
     position: fixed;
     top: 25%;
@@ -11,8 +11,8 @@
     cursor: pointer;
     border-radius: 8px;
     transition: 0.3s;
-    z-index: 9999; /* Bring it to front */
-    pointer-events: auto; /* Ensure it's clickable */
+    z-index: 9999; 
+    pointer-events: auto; /* ensure it's clickable */
 }
 
 #powerups-btn:hover {
@@ -60,9 +60,8 @@
     background: #45a049;
 }
 
-/* Close Button */
 .close-btn {
-    background: red;
+    background: #780000;
     color: white;
     padding: 5px;
     border: none;
