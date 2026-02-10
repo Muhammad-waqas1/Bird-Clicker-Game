@@ -4,203 +4,660 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Bird Clicker Game</title>
+    <title>Bird Clicker Game - Play Now!</title>
+    <meta name="description"
+        content="An addictive incremental clicker game. Click the bird, earn coins, and unlock amazing upgrades!">
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="progress.css">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="stylesheet" href="powerups.css">
-    <link rel="stylesheet" href="RewardExtra.css">
-
 </head>
 
-<body>
-    <!-- Hamburger Button -->
-    <div id="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
-    </div>
+<body class="relative min-h-screen">
+
+    <!-- Hamburger Menu Button -->
+    <button id="hamburger-menu"
+        class="fixed top-4 left-4 z-50 glass p-3 rounded-lg hover:bg-white/20 transition-all duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
 
     <!-- Side Menu -->
-    <div id="menu-popup">
-        <ul>
-            <li onclick="toggleMusic()">
-                🎵 Toggle Music
-                <label class="switch">
-                    <input type="checkbox" id="musicToggle" onchange="toggleMusic()">
-                    <span class="slider round"></span>
-                </label>
-            </li>
-            <li>
-                🔊 Volume
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" onchange="adjustVolume()">
-            </li>
-            <li id="extras-btn" class="menu-button">🎁 Rewards & Extras</li>
-            <li onclick="showAchievements()">🏆 Achievements</li>
-            <li onclick="shareOnTwitter()">📢 Share Score</li>
-            <li onclick="toggleDarkMode()">🌙 Dark Mode</li>
-            <li onclick="openPremiumStore()">🎨 Premium Upgrades</li>
-            <li onclick="resetGame()">🔄 Reset Game</li>
-            <li onclick="showGameInfo()">ℹ️ Help</li>
-        </ul>
-    </div>
+    <div id="menu-popup"
+        class="fixed top-0 left-0 w-80 h-full glass-dark z-40 transform -translate-x-full transition-transform duration-300 overflow-y-auto custom-scrollbar">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-white mb-6"
+                style="display: flex;align-items: center;justify-content: center;">⚙️Settings</h2>
 
-    <div id="extras-menu" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="close-extras">&times;</span>
-            <h2>🎁 Rewards & Extras</h2>
-            
-            <div class="extras-section">
-                <h3>🐦 Bird Evolution</h3>
-                <p>Upgrade your bird from a chick to a majestic eagle!</p>
-                <progress id="evolution-progress" value="0" max="100"></progress>
-                <p>Current Stage: <span id="evolution-stage">Chick</span></p>
-            </div>
-    
-            <div class="extras-section">
-                <h3>🎮 Mini-Games</h3>
-                <button id="play-minigame">Play "Dodge the Obstacle"</button>
-            </div>
-    
-            <div class="extras-section">
-                <h3>🌄 Unlockable Backgrounds</h3>
-                <button class="background-btn" data-bg="default">🌳 Default</button>
-                <button class="background-btn" data-bg="day">☀️ Day Theme</button>
-                <button class="background-btn" data-bg="forest">🌲 Forest Theme</button>
-                <button class="background-btn" data-bg="evening">🌆 Evening Theme</button>
-                <button class="background-btn" data-bg="morning">🌊 River Theme</button>
-                <button class="background-btn" data-bg="night">🌃 Night Theme</button>
+            <div class="space-y-4">
+                <!-- Music Toggle -->
+                <div class="glass p-4 rounded-lg flex items-center justify-between">
+                    <span class="text-white font-medium">🎵 Music</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="musicToggle" class="sr-only peer" onchange="toggleMusic()">
+                        <div
+                            class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Volume Slider -->
+                <div class="glass p-4 rounded-lg">
+                    <label class="text-white font-medium block mb-2">🔊 Volume</label>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.4"
+                        onchange="adjustVolume()"
+                        class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                </div>
+
+                <!-- Menu Buttons -->
+                <button id="extras-btn"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    🎁 Rewards & Extras
+                </button>
+
+                <button id="stats-btn"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    📊 Statistics
+                </button>
+
+                <button onclick="showAchievements()"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    🏆 Achievements
+                </button>
+
+                <button id="daily-reward-btn"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    🎁 Daily Reward
+                </button>
+
+                <button onclick="shareOnTwitter()"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    📢 Share Score
+                </button>
+
+                <button onclick="toggleDarkMode()"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    🌙 Dark Mode
+                </button>
+
+                <button id="premium-store-btn"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    🎨 Premium Store
+                </button>
+
+                <button id="prestige-btn"
+                    class="w-full glass p-4 rounded-lg text-purple-400 font-medium hover:bg-purple-500/20 transition-all text-left">
+                    ✨ Prestige System
+                </button>
+
+                <button onclick="resetGame()"
+                    class="w-full glass p-4 rounded-lg text-red-400 font-medium hover:bg-red-500/20 transition-all text-left">
+                    🔄 Reset Game
+                </button>
+
+                <button onclick="showGameInfo()"
+                    class="w-full glass p-4 rounded-lg text-white font-medium hover:bg-white/20 transition-all text-left">
+                    ℹ️ Help
+                </button>
             </div>
         </div>
     </div>
-    
 
-    <!-- Achievements Pop-up -->
-    <div id="achievements-popup" class="popup">
-        <div class="popup-content">
-            <h2>🏆 Achievements</h2>
-            <ul id="achievements-list">
-                <!-- Achievements will be added here dynamically -->
-            </ul>
-            <button onclick="closeAchievements()">Close</button>
+    <!-- Statistics Modal -->
+    <div id="stats-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">📊 Your Statistics</h2>
+                <button id="close-stats"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-amber-400 text-sm font-semibold">TOTAL COINS EARNED</div>
+                    <div class="text-white text-3xl font-bold" id="total-coins-stat">0</div>
+                </div>
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-green-400 text-sm font-semibold">TOTAL CLICKS</div>
+                    <div class="text-white text-3xl font-bold" id="total-clicks-stat">0</div>
+                </div>
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-purple-400 text-sm font-semibold">HIGHEST LEVEL</div>
+                    <div class="text-white text-3xl font-bold" id="highest-level-stat">1</div>
+                </div>
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-pink-400 text-sm font-semibold">PLAYTIME</div>
+                    <div class="text-white text-3xl font-bold" id="playtime-stat">0m</div>
+                </div>
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-cyan-400 text-sm font-semibold">UPGRADES PURCHASED</div>
+                    <div class="text-white text-3xl font-bold" id="upgrades-purchased-stat">0</div>
+                </div>
+                <div class="glass p-4 rounded-xl">
+                    <div class="text-orange-400 text-sm font-semibold">POWER-UPS USED</div>
+                    <div class="text-white text-3xl font-bold" id="powerups-used-stat">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prestige System Modal -->
+    <div id="prestige-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl p-6 md:p-8 max-w-2xl w-full border-4 border-amber-400">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">✨ Prestige System</h2>
+                <button id="close-prestige"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <div class="glass p-6 rounded-xl mb-6 text-center">
+                <div class="text-amber-400 text-lg font-bold mb-2">PRESTIGE POINTS AVAILABLE</div>
+                <div class="text-white text-5xl font-bold" id="prestige-points">0</div>
+                <p class="text-white/70 mt-4">Reset your progress to earn prestige points and permanent bonuses!</p>
+            </div>
+
+            <div class="space-y-3 mb-6">
+                <div class="glass p-4 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-white font-bold">+10% Click Power</h3>
+                            <p class="text-white/70 text-sm">Cost: 1 Prestige Point</p>
+                        </div>
+                        <button
+                            class="prestige-upgrade-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
+                            data-upgrade="click">
+                            Upgrade
+                        </button>
+                    </div>
+                </div>
+                <div class="glass p-4 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-white font-bold">+10% Auto Income</h3>
+                            <p class="text-white/70 text-sm">Cost: 1 Prestige Point</p>
+                        </div>
+                        <button
+                            class="prestige-upgrade-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
+                            data-upgrade="auto">
+                            Upgrade
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="do-prestige-btn"
+                class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                🌟 Prestige Now (Requires Level 20)
+            </button>
+        </div>
+    </div>
+
+    <!-- Daily Reward Modal -->
+    <div id="daily-reward-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-amber-900 to-yellow-900 rounded-2xl p-6 md:p-8 max-w-md w-full">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">🎁 Daily Reward!</h2>
+                <div class="glass p-8 rounded-xl mb-6">
+                    <div class="text-6xl mb-4">💰</div>
+                    <div class="text-white text-2xl font-bold mb-2">You received:</div>
+                    <div class="text-amber-400 text-4xl font-bold" id="daily-reward-amount">1000 Coins!</div>
+                </div>
+                <p class="text-white/80 mb-6">Come back tomorrow for more rewards!</p>
+                <button id="claim-daily-reward"
+                    class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Claim Reward
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Store Modal -->
+    <div id="premium-store-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-6 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold premium-badge">🎨 Premium Store</h2>
+                <button id="close-premium"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Golden Bird Skin -->
+                <div class="glass p-6 rounded-xl text-center premium-item" data-item="golden-skin" data-cost="10000">
+                    <div class="text-6xl mb-3">🦅</div>
+                    <h3 class="text-white font-bold text-xl mb-2">Golden Bird Skin</h3>
+                    <p class="text-white/70 text-sm mb-4">Make your bird shine with gold!</p>
+                    <div class="text-amber-400 font-bold mb-3">10,000 Coins</div>
+                    <button
+                        class="premium-buy-btn w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Purchase
+                    </button>
+                </div>
+
+                <!-- Rainbow Bird Skin -->
+                <div class="glass p-6 rounded-xl text-center premium-item" data-item="rainbow-skin" data-cost="25000">
+                    <div class="text-6xl mb-3">🦜</div>
+                    <h3 class="text-white font-bold text-xl mb-2">Rainbow Bird Skin</h3>
+                    <p class="text-white/70 text-sm mb-4">Colorful and magical!</p>
+                    <div class="text-amber-400 font-bold mb-3">25,000 Coins</div>
+                    <button
+                        class="premium-buy-btn w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Purchase
+                    </button>
+                </div>
+
+                <!-- Auto Clicker Boost -->
+                <div class="glass p-6 rounded-xl text-center premium-item" data-item="auto-boost" data-cost="50000">
+                    <div class="text-6xl mb-3">⚡</div>
+                    <h3 class="text-white font-bold text-xl mb-2">Auto Boost x2</h3>
+                    <p class="text-white/70 text-sm mb-4">Double auto income permanently!</p>
+                    <div class="text-amber-400 font-bold mb-3">50,000 Coins</div>
+                    <button
+                        class="premium-buy-btn w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Purchase
+                    </button>
+                </div>
+
+                <!-- Lucky Charm -->
+                <div class="glass p-6 rounded-xl text-center premium-item" data-item="lucky-charm" data-cost="100000">
+                    <div class="text-6xl mb-3">🍀</div>
+                    <h3 class="text-white font-bold text-xl mb-2">Lucky Charm</h3>
+                    <p class="text-white/70 text-sm mb-4">More golden birds appear!</p>
+                    <div class="text-amber-400 font-bold mb-3">100,000 Coins</div>
+                    <button
+                        class="premium-buy-btn w-full bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Purchase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extras Menu Modal -->
+    <div id="extras-menu"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">🎁 Rewards & Extras</h2>
+                <button id="close-extras"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <!-- Evolution Section -->
+            <div class="glass p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-bold text-amber-400 mb-3">🦅 Bird Evolution</h3>
+                <p class="text-white/80 mb-4">Upgrade your bird from a chick to a legendary phoenix!</p>
+                <div class="w-full bg-gray-700 rounded-full h-8 mb-3 overflow-hidden">
+                    <div id="evolution-progress"
+                        class="bg-gradient-to-r from-amber-500 to-orange-500 h-full transition-all duration-500 flex items-center justify-center text-white font-bold text-sm"
+                        style="width: 0%"></div>
+                </div>
+                <p class="text-white">Current Stage: <span id="evolution-stage" class="text-amber-400 font-bold">🐣
+                        Newbie Bird</span></p>
+            </div>
+
+            <!-- Mini-Games Section -->
+            <div class="glass p-6 rounded-xl mb-6">
+                <h3 class="text-xl font-bold text-green-400 mb-3">🎮 Mini-Games</h3>
+                <div class="space-y-3">
+                    <button id="play-dodge-game"
+                        class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        🎯 Dodge the Obstacles
+                    </button>
+                    <button id="play-memory-game"
+                        class="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        🧠 Memory Match
+                    </button>
+                </div>
+            </div>
+
+            <!-- Backgrounds Section -->
+            <div class="glass p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-blue-400 mb-4">🌄 Unlockable Backgrounds</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <button
+                        class="background-btn bg-gradient-to-br from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="default">
+                        🌳 Default
+                    </button>
+                    <button
+                        class="background-btn bg-gradient-to-br from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="day">
+                        ☀️ Day
+                    </button>
+                    <button
+                        class="background-btn bg-gradient-to-br from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="forest">
+                        🌲 Forest
+                    </button>
+                    <button
+                        class="background-btn bg-gradient-to-br from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="evening">
+                        🌆 Evening
+                    </button>
+                    <button
+                        class="background-btn bg-gradient-to-br from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="river">
+                        🌊 River
+                    </button>
+                    <button
+                        class="background-btn bg-gradient-to-br from-indigo-700 to-purple-900 hover:from-indigo-800 hover:to-purple-950 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        data-bg="night">
+                        🌃 Night
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodge Game Modal -->
+    <div id="dodge-game-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-6 md:p-8 max-w-3xl w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">🎯 Dodge the Obstacles!</h2>
+                <button id="close-dodge-game"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="flex justify-around mb-4">
+                    <div class="glass p-3 rounded-lg">
+                        <div class="text-white/70 text-sm">Score</div>
+                        <div class="text-white text-2xl font-bold" id="dodge-score">0</div>
+                    </div>
+                    <div class="glass p-3 rounded-lg">
+                        <div class="text-white/70 text-sm">High Score</div>
+                        <div class="text-amber-400 text-2xl font-bold" id="dodge-high-score">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <canvas id="dodgeCanvas" width="600" height="400" class="mx-auto rounded-lg"></canvas>
+
+            <div class="text-center mt-4">
+                <button id="start-dodge-game"
+                    class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
+                    Start Game
+                </button>
+                <p class="text-white/70 text-sm mt-3">Use Arrow Keys or Touch to move</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Game Modal -->
+    <div id="memory-game-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-2xl p-6 md:p-8 max-w-2xl w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">🧠 Memory Match</h2>
+                <button id="close-memory-game"
+                    class="text-white hover:text-red-400 text-3xl transition-colors">&times;</button>
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="flex justify-around mb-4">
+                    <div class="glass p-3 rounded-lg">
+                        <div class="text-white/70 text-sm">Moves</div>
+                        <div class="text-white text-2xl font-bold" id="memory-moves">0</div>
+                    </div>
+                    <div class="glass p-3 rounded-lg">
+                        <div class="text-white/70 text-sm">Matches</div>
+                        <div class="text-green-400 text-2xl font-bold" id="memory-matches">0/8</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="memory-grid" class="grid grid-cols-4 gap-3 max-w-md mx-auto mb-4">
+                <!-- Memory cards will be generated here -->
+            </div>
+
+            <div class="text-center">
+                <button id="start-memory-game"
+                    class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
+                    New Game
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Popup -->
+    <div id="achievements-popup"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-amber-900 to-yellow-900 rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <h2 class="text-3xl font-bold text-white mb-6">🏆 Achievements</h2>
+            <ul id="achievements-list" class="space-y-3"></ul>
+            <button onclick="closeAchievements()"
+                class="mt-6 w-full bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                Close
+            </button>
         </div>
     </div>
 
     <!-- Achievement Notification -->
-    <div id="achievement-popup" class="achievement-popup">
-        <p id="achievement-text"></p>
+    <div id="achievement-popup"
+        class="fixed bottom-6 right-6 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-4 rounded-lg shadow-2xl hidden z-50 transform transition-all duration-300">
+        <p id="achievement-text" class="font-bold text-lg"></p>
     </div>
 
-
-    <!-- Custom Confirm Dialog -->
-    <div id="custom-confirm" class="confirm-overlay">
-        <div class="confirm-box">
-            <h2>⚠ Reset Game?</h2>
-            <p>Are you sure you want to reset your progress? This action cannot be undone!</p>
-            <div class="confirm-buttons">
-                <button id="confirm-yes">Yes, Reset</button>
-                <button id="confirm-no">Cancel</button>
+    <!-- Reset Confirmation Dialog -->
+    <div id="custom-confirm"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div
+            class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 max-w-md w-full border-2 border-red-500">
+            <h2 class="text-2xl font-bold text-red-400 mb-4">⚠️ Reset Game?</h2>
+            <p class="text-white/80 mb-6">Are you sure you want to reset your progress? This action cannot be undone!
+            </p>
+            <div class="flex gap-4">
+                <button id="confirm-yes"
+                    class="flex-1 bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Yes, Reset
+                </button>
+                <button id="confirm-no"
+                    class="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Cancel
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- Main Game Container -->
+    <div class="relative min-h-screen flex flex-col">
 
-    <div class="level-container">
-        <p style="font-size: 25px; ">Level <span id="levelDisplay">1</span></p>
-        <div class="progress-bar">
-            <div id="progressFill"></div>
+        <!-- Top Stats Bar -->
+        <div class="fixed top-4 right-4 z-30 flex flex-col items-end gap-3">
+            <!-- Score Display -->
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-6 py-3 rounded-xl shadow-2xl border-2 border-white/30"
+                style="display: flex; align-items: center; justify-content: center;">
+                <div class="text-sm opacity-80">Coins</div>
+                <div class="text-3xl md:text-4xl ms-2" id="score">0</div>
+            </div>
+
+            <!-- Level Display -->
+            <div class="glass-dark text-white font-bold px-6 py-3 rounded-xl shadow-xl">
+                <span class="text-sm opacity-80">Level </span>
+                <span class="text-2xl ms-1" id="levelDisplay">1</span>
+            </div>
+
+            <!-- Combo Display -->
+            <div id="combo-display" class="glass-dark text-white font-bold px-6 py-3 rounded-xl shadow-xl hidden">
+                <div class="text-sm opacity-80">Combo</div>
+                <div class="text-2xl text-amber-400"
+                    style="align-items: center; justify-content: center; display: flex; ">x<span
+                        id="combo-multiplier">1</span></div>
+            </div>
         </div>
-    </div>
 
-    <!-- Boosts Button -->
-    <button id="powerups-btn" class="menu-button">Boosts⚡</button>
-
-    <!-- Power-Ups Popup Menu -->
-    <div id="powerups-menu" class="popup-menu hidden">
-        <h2>⚡ Power-Ups</h2>
-        <button id="double-coins" class="powerup-btn">💰 2x Coins (20s) - 1000 Coins</button>
-        <button id="auto-frenzy" class="powerup-btn">🔥 Auto Click Frenzy (10s) - 2000 Coins</button>
-        <button id="golden-bird" class="powerup-btn">✨ Golden Bird Mode (30s) - 5000 Coins</button>
-        <button id="discount-mode" class="powerup-btn">💸 Reduce Upgrade Costs (15s) - 3000 Coins</button>
-        <button id="close-powerups" class="close-btn">❌ Close</button>
-    </div>
-
-
-
-    <div id="game">
-        <div id="stats">
-            <div id="score-box">Coins: <span id="score">0</span></div>
-        </div>
-        <div id="coins-per-second"></div>
-
-        <!-- Left Sidebar for Upgrades -->
-        <div id="upgrade-sidebar" class="upgrade-container">
-            <h2>Upgrades</h2>
-
-            <div class="upgrade-item" id="UpgradeButton1">
-                <div class="upgrade-details">
-                    <h3>Auto Click</h3>
-                    <p>+1 Auto Coins per second</p>
-                    <p class="cost"><span class="cost-amount">50</span><img
-                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
-                            alt="Coins" width="15%"></p>
-                    <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
+        <!-- Level Progress Bar -->
+        <div class="fixed top-20 left-1/2 transform -translate-x-1/2 w-11/12 md:w-2/5 z-30">
+            <div class="glass-dark p-3 rounded-xl">
+                <div class="w-full bg-gray-700/50 rounded-full h-4 overflow-hidden">
+                    <div id="progressFill"
+                        class="bg-gradient-to-r from-amber-500 to-orange-600 h-full transition-all duration-300"
+                        style="width: 0%"></div>
                 </div>
-                <div class="click-count"><span class="click-count-num">0</span></div>
             </div>
-
-            <div class="upgrade-item" id="UpgradeButton2">
-                <div class="upgrade-details">
-                    <h3>Click Power</h3>
-                    <p>+1 Birds per click</p>
-                    <p class="cost"><span class="cost-amount">125</span><img
-                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
-                            alt="Coins" width="15%"></p>
-                    <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
-                </div>
-                <div class="click-count"><span class="click-count-num">0</span></div>
-            </div>
-
-            <div class="upgrade-item" id="UpgradeButton3">
-                <div class="upgrade-details">
-                    <h3>Mr Clicker</h3>
-                    <p>+5 Birds per click</p>
-                    <p class="cost"><span class="cost-amount">500</span><img
-                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
-                            alt="Coins" width="15%"></p>
-                    <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
-                </div>
-                <div class="click-count"><span class="click-count-num">0</span></div>
-            </div>
-
-            <div class="upgrade-item" id="UpgradeButton4">
-                <div class="upgrade-details">
-                    <h3>Birds Nest</h3>
-                    <p>+10 Birds per click</p>
-                    <p class="cost"><span class="cost-amount">1,100</span><img
-                            src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
-                            alt="Coins" width="15%"></p>
-                    <!-- <button class="upgrade-button" id="autoclicker-button">Buy</button> -->
-                </div>
-                <div class="click-count"><span class="click-count-num">0</span></div>
-            </div>
-
-
         </div>
 
-        <div id="click-area">
-            <!-- Image for game -->
-            <img id="click-image" src="assets/pngtree-cartoon-bird-blue-bird-png-image_2370765-removebg-preview.png"
-                alt="Click Object">
+        <!-- Boosts Button (Mobile-friendly) -->
+        <button id="powerups-btn"
+            class="z-30 bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-black font-bold px-4 md:px-6 py-3 md:py-4 rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-110"
+            style="display: flex;align-items: center;width: 7%;justify-content: center;margin: 11px auto;">
+            <span class="hidden md:inline">Boosts</span>
+            <span class="md:hidden text-xl">⚡</span>
+        </button>
+
+        <!-- Power-Ups Menu -->
+        <div id="powerups-menu"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-6 md:p-8 max-w-2xl w-full">
+                <h2 class="text-3xl font-bold text-amber-400 mb-6 text-center">⚡ Power-Ups</h2>
+
+                <div class="space-y-4">
+                    <button id="double-coins"
+                        class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        💰 2x Coins (20s) - 1000 Coins
+                    </button>
+
+                    <button id="auto-frenzy"
+                        class="w-full bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        🔥 Auto Click Frenzy (10s) - 2000 Coins
+                    </button>
+
+                    <button id="golden-bird"
+                        class="w-full bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        ✨ Golden Bird Mode (30s) - 5000 Coins
+                    </button>
+
+                    <button id="discount-mode"
+                        class="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        💸 Reduce Upgrade Costs (15s) - 3000 Coins
+                    </button>
+
+                    <button id="close-powerups"
+                        class="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300">
+                        ✖ Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upgrade Sidebar (Responsive) -->
+        <div
+            class="upgrade-sidebar fixed bottom-0 md:top-0 left-0 w-full md:w-80 h-auto md:h-full bg-black/80 backdrop-blur-md p-4 md:p-6 overflow-y-auto custom-scrollbar z-20">
+            <h2 class="text-2xl font-bold text-white mb-6"
+                style="display: flex;align-items: center;justify-content: center;">🛒 Upgrades</h2>
+
+            <div class="space-y-3">
+                <!-- Auto Click Upgrade -->
+                <div id="UpgradeButton1"
+                    class="upgrade-item glass p-4 rounded-xl cursor-pointer flex items-center justify-between">
+                    <div class="flex-1">
+                        <h3 class="text-lg md:text-xl font-bold text-white">Auto Click</h3>
+                        <p class="text-sm text-white/70">+1 Auto Coins/sec</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="cost-amount text-amber-400 font-bold text-lg">50</span>
+                            <img src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                                alt="Coins" class="w-6 h-6">
+                        </div>
+                    </div>
+                    <div class="text-3xl md:text-4xl text-cyan-400 font-bold">
+                        <span class="click-count-num">0</span>
+                    </div>
+                </div>
+
+                <!-- Click Power Upgrade -->
+                <div id="UpgradeButton2"
+                    class="upgrade-item glass p-4 rounded-xl cursor-pointer flex items-center justify-between">
+                    <div class="flex-1">
+                        <h3 class="text-lg md:text-xl font-bold text-white">Click Power</h3>
+                        <p class="text-sm text-white/70">+1 Birds per click</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="cost-amount text-amber-400 font-bold text-lg">125</span>
+                            <img src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                                alt="Coins" class="w-6 h-6">
+                        </div>
+                    </div>
+                    <div class="text-3xl md:text-4xl text-cyan-400 font-bold">
+                        <span class="click-count-num">0</span>
+                    </div>
+                </div>
+
+                <!-- Mr Clicker Upgrade -->
+                <div id="UpgradeButton3"
+                    class="upgrade-item glass p-4 rounded-xl cursor-pointer flex items-center justify-between">
+                    <div class="flex-1">
+                        <h3 class="text-lg md:text-xl font-bold text-white">Mr Clicker</h3>
+                        <p class="text-sm text-white/70">+5 Birds per click</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="cost-amount text-amber-400 font-bold text-lg">500</span>
+                            <img src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                                alt="Coins" class="w-6 h-6">
+                        </div>
+                    </div>
+                    <div class="text-3xl md:text-4xl text-cyan-400 font-bold">
+                        <span class="click-count-num">0</span>
+                    </div>
+                </div>
+
+                <!-- Birds Nest Upgrade -->
+                <div id="UpgradeButton4"
+                    class="upgrade-item glass p-4 rounded-xl cursor-pointer flex items-center justify-between">
+                    <div class="flex-1">
+                        <h3 class="text-lg md:text-xl font-bold text-white">Birds Nest</h3>
+                        <p class="text-sm text-white/70">+10 Birds per click</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="cost-amount text-amber-400 font-bold text-lg">1,100</span>
+                            <img src="assets/pngtree-glossy-golden-coin-icon-png-image_2898883-removebg-preview.png"
+                                alt="Coins" class="w-6 h-6">
+                        </div>
+                    </div>
+                    <div class="text-3xl md:text-4xl text-cyan-400 font-bold">
+                        <span class="click-count-num">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Click Area (Centered Bird) -->
+        <div class="flex-1 flex items-center justify-center pb-40 md:pb-0">
+            <div id="click-area" class="relative">
+                <img id="click-image" src="assets/pngtree-cartoon-bird-blue-bird-png-image_2370765-removebg-preview.png"
+                    alt="Click Bird"
+                    class="w-64 h-64 md:w-80 md:h-80 cursor-pointer select-none transition-transform duration-100"
+                    draggable="false">
+            </div>
+        </div>
+
+        <!-- Coins Per Second Display -->
+        <div id="coins-per-second"
+            class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass-dark text-amber-400 font-bold px-6 py-3 rounded-xl shadow-xl hidden z-30">
         </div>
     </div>
 
-
-
-    <!-- JavaScript link -->
-    <script src="script.js"></script>
-    <!-- <script src="progress.js"></script> -->
+    <!-- JavaScript -->
+    <script src="game-core.js"></script>
+    <script src="game-menu.js"></script>
+    <script src="game-achievements.js"></script>
+    <script src="game-powerups.js"></script>
+    <script src="game-premium.js"></script>
+    <script src="game-minigames.js"></script>
 </body>
 
 </html>
