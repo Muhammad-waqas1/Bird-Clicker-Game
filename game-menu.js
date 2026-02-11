@@ -13,11 +13,13 @@ if (hamburgerBtn) {
     hamburgerBtn.addEventListener('click', toggleMenu);
 }
 
+
+
 // Music Control
 function toggleMusic() {
     const toggle = document.getElementById('musicToggle');
     if (toggle && toggle.checked) {
-        audioFiles.bgMusic.play().catch(() => {});
+        audioFiles.bgMusic.play().catch(() => { });
     } else if (audioFiles.bgMusic) {
         audioFiles.bgMusic.pause();
     }
@@ -27,7 +29,7 @@ function toggleMusic() {
 function adjustVolume() {
     const slider = document.getElementById('volumeSlider');
     if (!slider) return;
-    
+
     const volume = parseFloat(slider.value);
     Object.values(audioFiles).forEach(audio => {
         if (audio) audio.volume = volume;
@@ -40,7 +42,7 @@ document.addEventListener('click', () => {
     if (!musicStarted) {
         const toggle = document.getElementById('musicToggle');
         if (toggle && toggle.checked) {
-            audioFiles.bgMusic.play().catch(() => {});
+            audioFiles.bgMusic.play().catch(() => { });
         }
         musicStarted = true;
     }
@@ -134,12 +136,12 @@ function updateStatisticsDisplay() {
         'powerups-used-stat': powerupsUsed,
         'playtime-stat': Math.floor((Date.now() - startTime + playTime) / 60000) + 'm'
     };
-    
+
     Object.entries(elements).forEach(([id, value]) => {
         const element = document.getElementById(id);
         if (element) {
-            element.textContent = typeof value === 'number' && id !== 'playtime-stat' 
-                ? formatNumber(value) 
+            element.textContent = typeof value === 'number' && id !== 'playtime-stat'
+                ? formatNumber(value)
                 : value;
         }
     });
@@ -202,10 +204,10 @@ function updateEvolution() {
             break;
         }
     }
-    
+
     const progressBar = document.getElementById('evolution-progress');
     const stageElement = document.getElementById('evolution-stage');
-    
+
     if (progressBar) {
         progressBar.style.width = currentStage.progress + "%";
     }
@@ -220,11 +222,11 @@ setInterval(updateEvolution, 1000);
 // ==================== MODAL CLOSE ON OUTSIDE CLICK ====================
 window.addEventListener('click', (event) => {
     const modals = [
-        'extras-menu', 'powerups-menu', 'stats-modal', 
-        'daily-reward-modal', 'premium-store-modal', 
+        'extras-menu', 'powerups-menu', 'stats-modal',
+        'daily-reward-modal', 'premium-store-modal',
         'prestige-modal', 'achievements-popup'
     ];
-    
+
     modals.forEach(modalId => {
         const modal = document.getElementById(modalId);
         if (modal && event.target === modal) {

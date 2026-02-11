@@ -140,7 +140,6 @@ Modify the code, then commit your changes:
 *   Click on **"New Pull Request"**.
     
 *   Compare changes and submit your request!
->>>>>>> f61ef6ed34751f85b05e026a5a241a27f401f03d
 
 ### Gameplay
 - 🖱️ **Click and Earn** - Click the bird to collect coins
@@ -454,7 +453,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by [@Muhammad-waqas1](https://github.com/Muhammad-waqas1)**
 
-**Version 2.5 Enhanced Edition** | [Report Bug](https://github.com/Muhammad-waqas1/Bird-Clicker-Game/issues) | [Request Feature](https://github.com/Muhammad-waqas1/Bird-Clicker-Game/discussions)
+**Version 2.0 Enhanced Edition** | [Report Bug](https://github.com/Muhammad-waqas1/Bird-Clicker-Game/issues) | [Request Feature](https://github.com/Muhammad-waqas1/Bird-Clicker-Game/discussions)
 
 ---
 
@@ -463,13 +462,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![Play Game](https://img.shields.io/badge/🎮-PLAY%20NOW-success?style=for-the-badge&logo=github)](https://muhammad-waqas1.github.io/Bird-Clicker-Game/)
 
 </div>
-
-
-
-For feedback, suggestions, or questions, feel free to contact me via: 
- 
-💬 [**GitHub Issues**](https://github.com/Muhammad-waqas1/Bird-Clicker-Game/issues)
-
-### **🎉 Enjoy Clicking & Happy Gaming!** 🐦
-
->_If you like it, Give it a star⭐_

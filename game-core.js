@@ -469,7 +469,7 @@ function checkLevelUp() {
         
         updateScore();
         checkAchievements();
-        spawnRewardBirds();
+        // spawnRewardBirds();
         
         showNotification(`🎉 Level ${level}! +${formatNumber(reward)} coins!`, 'success', 2000);
     }
@@ -535,7 +535,7 @@ function initGame() {
     // Auto-save every 10 seconds
     setInterval(saveGame, 10000);
     
-    console.log('🐦 Bird Clicker Game v2.5 - Loaded successfully!');
+    // console.log('🐦 Bird Clicker Game v2.5 - Loaded successfully!');
 }
 
 // Save on page unload

@@ -11,7 +11,8 @@ body {
 
 /* Background Themes */
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    background: url('https://img.freepik.com/free-vector/flat-nature-background_1308-20252.jpg') no-repeat center center fixed;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -246,6 +247,14 @@ body[data-theme="night"] {
     animation: pulse 0.3s ease-in-out;
 }
 
+#powerups-btn {
+    display: flex;
+    align-items: center;
+    width: 7%;
+    justify-content: center;
+    margin: 11px auto;
+}
+
 /* Mobile Optimizations */
 @media (max-width: 768px) {
     .upgrade-sidebar {
@@ -257,6 +266,42 @@ body[data-theme="night"] {
     #click-image {
         width: 180px !important;
         height: 180px !important;
+    }
+
+    #powerups-btn {
+        /* display: flex;  */
+        background: linear-gradient(to right, #a0fbff, #21c1da);
+        align-items: center !important;
+        width: 14% !important;
+        margin: 0px !important;
+        position: relative !important;
+        top: 16px !important;
+        left: 80px !important;
+    }
+
+    #levelID {
+        margin-top: 22% !important;
+
+        padding-top: 0.50rem !important;
+        padding-bottom: 0.50rem !important;
+        padding-left: 1.0rem !important;
+        padding-right: 1.0rem !important;
+    }
+
+    #Coin_div_ID {
+        padding-top: 0.50rem !important;
+        padding-bottom: 0.50rem !important;
+        padding-left: 1.0rem !important;
+        padding-right: 1.0rem !important;
+    }
+
+    #combo-display {
+        margin-top: -5%;
+
+        padding-top: 0.50rem !important;
+        padding-bottom: 0.50rem !important;
+        padding-left: 1.0rem !important;
+        padding-right: 1.0rem !important;
     }
 }
 
