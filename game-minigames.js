@@ -4,7 +4,7 @@
 let dodgeGame = {
     canvas: null,
     ctx: null,
-    player: { x: 280, y: 350, width: 40, height: 40, speed: 6 },
+    player: { x: 0, y: 0, width: 40, height: 40, speed: 6 },
     obstacles: [],
     score: 0,
     highScore: parseInt(localStorage.getItem('dodgeHighScore')) || 0,
@@ -19,6 +19,7 @@ const dodgeModal = document.getElementById('dodge-game-modal');
 const closeDodgeBtn = document.getElementById('close-dodge-game');
 const startDodgeBtn = document.getElementById('start-dodge-game');
 
+
 if (playDodgeBtn) {
     playDodgeBtn.addEventListener('click', () => {
         if (extrasMenu) {
@@ -32,6 +33,14 @@ if (playDodgeBtn) {
 
         dodgeGame.canvas = document.getElementById('dodgeCanvas');
         if (dodgeGame.canvas) {
+            if (window.innerWidth <= 768) {
+                dodgeGame.canvas.width = 270;
+                dodgeGame.canvas.height = 340;
+            } else {
+                dodgeGame.canvas.width = 500;
+                dodgeGame.canvas.height = 300;
+            }
+
             dodgeGame.ctx = dodgeGame.canvas.getContext('2d');
             const highScoreElement = document.getElementById('dodge-high-score');
             if (highScoreElement) {
@@ -55,9 +64,11 @@ if (startDodgeBtn) {
     startDodgeBtn.addEventListener('click', startDodgeGame);
 }
 
+
 function startDodgeGame() {
-    dodgeGame.player.x = 280;
-    dodgeGame.player.y = 350;
+    dodgeGame.player.x = (dodgeGame.canvas.width / 2) - 20;
+    dodgeGame.player.y = dodgeGame.canvas.height - 50;
+
     dodgeGame.obstacles = [];
     dodgeGame.score = 0;
     dodgeGame.difficulty = 1;
@@ -274,7 +285,7 @@ function initMemoryGame() {
 
     symbols.forEach((symbol, index) => {
         const card = document.createElement('div');
-        card.className = 'glass p-6 rounded-xl cursor-pointer flex items-center justify-center text-4xl transform transition-all hover:scale-105 aspect-square';
+        card.className = 'glass p-3 rounded-xl cursor-pointer flex items-center justify-center text-4xl transform transition-all hover:scale-105';
         card.dataset.symbol = symbol;
         card.dataset.index = index;
         card.textContent = '❓';

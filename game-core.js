@@ -68,6 +68,14 @@ const upgradeButton2 = document.getElementById('UpgradeButton2');
 const upgradeButton3 = document.getElementById('UpgradeButton3');
 const upgradeButton4 = document.getElementById('UpgradeButton4');
 const clickImage = document.getElementById('click-image');
+
+clickImage.addEventListener("contextmenu", e => e.preventDefault());
+clickImage.addEventListener("touchstart", e => {
+    e.preventDefault();
+}, { passive: false });
+
+
+
 const levelDisplay = document.getElementById('levelDisplay');
 const progressFill = document.getElementById('progressFill');
 
