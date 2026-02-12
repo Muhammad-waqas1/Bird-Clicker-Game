@@ -41,9 +41,6 @@ A modern, fully responsive, feature-rich incremental clicker game where players 
 - Upgrades purchased
 - Power-ups used
 
-## 🎮 Core Features
-=======
-
 **🚀 Features**
 ---------------
 
@@ -259,30 +256,6 @@ Works flawlessly on all devices:
 - **LocalStorage API** - Save/load game data
 - **Canvas API** - Mini-game rendering
 
-## 📦 File Structure
-
-```
-Bird-Clicker-Game/
-├── index.html              # Main HTML file (Enhanced v2.0)
-├── script.js               # Game logic (Enhanced with all features)
-├── assets/                 # Game assets
-│   ├── Backgrounds/        # 6 background themes
-│   │   ├── background_day_4.jpg
-│   │   ├── background_day_fore_1.jpg
-│   │   ├── background_evening_2.jpg
-│   │   ├── background_night_3.jpg
-│   │   └── background_river_5.jpg
-│   ├── favicon.png         # Site icon
-│   ├── golden-bird.png     # Reward bird
-│   ├── *.png              # Game images
-│   └── *.mp3              # Sound effects
-├── README.md              # This file
-├── LICENSE                # MIT License
-├── CONTRIBUTING.md        # Contribution guidelines
-├── CHANGELOG.md           # Version history
-└── RELEASE_NOTES.md       # Detailed release information
-```
-
 ## 🎯 Key Features Breakdown
 
 ### 🎮 Mini-Games
@@ -357,7 +330,7 @@ We love contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 **Quick start for contributors:**
 ```bash
 # Fork and clone
-git clone https://github.com/YOUR-USERNAME/Bird-Clicker-Game.git
+git clone https://github.com/Muhammad-waqas1/Bird-Clicker-Game.git
 
 # Create a branch
 git checkout -b feature/amazing-feature
@@ -459,6 +432,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### 🎮 Start Playing Now!
 
-[![Play Game](https://img.shields.io/badge/🎮-PLAY%20NOW-success?style=for-the-badge&logo=github)](https://muhammad-waqas1.github.io/Bird-Clicker-Game/)
+[![Play Game](https://img.shields.io/badge/PLAY%20NOW-success?style=for-the-badge&logo=github)](https://muhammad-waqas1.github.io/Bird-Clicker-Game/)
 
 </div>
